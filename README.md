@@ -119,28 +119,39 @@ We process these files to provide a better experience.
     backticks.
     For example: `INCR`.
 
-The reply types and descriptions are stored in separate JSON files in this doc repo.
-Each command will have a description and both RESP2 and RESP3 return values.
-When adding or editing return values, be sure to edit both files. Use the following
-links for the reply type.
-Regarding the return values, these are contained in the files:
+The sections of a command page are loosely modeled after the Linux man pages
+(see `man man-pages`).
+They appear in this order, where the ones marked *generated* are added from
+the command's JSON file when the page is rendered:
 
-* `resp2_replies.json`
-* `resp3_replies.json`
+* Usage (*generated*)
+* Description, without a heading.
+  For deprecated commands, it starts with a `## Alternative` section.
+* Optional sections about the command's arguments and behavior, such as
+  `## Options`.
+* `## Reply`
+* Complexity and ACL categories (*generated*)
+* `## Notes` (optional)
+* `## Examples` (optional)
+* Optional sections such as patterns and use cases.
+* History and See also (*generated*)
 
-Each file is a dictionary with a matching set of keys. Each key is an array of strings that,
-when processed, produce Markdown content. Here's an example:
+The `## Reply` section describes the reply in both RESP2 and RESP3.
+It uses the RESP3 types, written as plain words: "array", "string",
+"integer", "double", "map", "set", "verbatim string" and "null".
+The [protocol specification](topics/protocol.md) explains how each type is
+represented in RESP2.
+A value in backticks, such as `OK`, is a simple string.
+Other simple strings are written as "Simple string".
+Here's an example:
 
-```json
-{
-  ...
-  "ACL CAT": [
-    "One of the following:",
-    "* [Array reply](topics/protocol.md#arrays): an array of [Bulk string reply](topics/protocol.md#bulk-strings) elements representing ACL categories or commands in a given category.",
-    "* [Simple error reply](topics/protocol.md#simple-errors): the command returns an error if an invalid category name is given."
-  ],
-  ...
-}
+```markdown
+## Reply
+
+One of the following:
+
+* String: the value of the key.
+* Null: if the key does not exist.
 ```
 
 ### Styling guidelines
