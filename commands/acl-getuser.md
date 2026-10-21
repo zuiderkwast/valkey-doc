@@ -9,6 +9,13 @@ Note: This description of command rules reflects the user's effective permission
 
 Selectors are listed in the order they were applied to the user, and include information about commands, key patterns, channel patterns, and database permissions.
 
+## Reply
+
+One of the following:
+
+* Map of ACL rule definitions for the user.
+* Null: if user does not exist.
+
 ## Examples
 
 Here's an example configuration for a user
